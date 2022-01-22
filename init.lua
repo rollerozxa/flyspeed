@@ -1,5 +1,7 @@
 local data = {}
 
+local S = minetest.get_translator('flyspeed')
+
 local storage = minetest.get_mod_storage()
 
 -- Read flight speed data from mod storage on startup
@@ -16,17 +18,17 @@ end
 minetest.register_chatcommand('flyspeed', {
 	params = "<speed>",
 
-	description = "Change the flight speed.",
+	description = S("Change the flight speed."),
 
 	privs = { fly = true },
 
 	func = function(name, param)
 		local speed = tonumber(param) or -1
 		if speed >= 0 then
-			minetest.chat_send_player(name, "Set flight speed to "..param)
+			minetest.chat_send_player(name, S("Set flight speed to @1", param))
 			update_speed(name, speed)
 		else
-			minetest.chat_send_player(name, minetest.colorize("#ff0000", "Invalid speed."))
+			minetest.chat_send_player(name, minetest.colorize("#ff0000", S("Invalid speed.")))
 		end
 	end,
 })
